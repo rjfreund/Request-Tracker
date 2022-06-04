@@ -1,16 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 
 function FeatureRequests() {
     const [records, setRecords] = useState([]);
     const [error, setError] = useState(null);
 
     const Column = ({ record }) => (
-        <div className="col">
-            <div className="card">
+        <div className="col-12 col-md-4">
+            <div className="card mb-5">
+                <div class="card-header">Feature Request</div>
                 <img src="https://www.google.com/logos/doodles/2022/memorial-day-2022-united-states-6753651837109423-l.png" className="card-img-top" alt="blah" />
                 <div className="card-body">
-                    <h5 className="card-title">{record.fields.Title}</h5>
-                    <p className="card-text">{record.fields.Description}</p>
+                    {record.fields.Created}
+                    <div class="form-floating mb-3">
+                        <input type="email" readonly class="form-control-plaintext" id="floatingPlaintextInput" placeholder="name@example.com" value="name@example.com" />
+                            <label for="floatingPlaintextInput">Input with value</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingTitle" placeholder="Title" value={record.fields.Title} />
+                        <label for="floatingTitle">Title</label>
+                    </div>
+                    <div class="form-floating">
+                        <textarea type="text" class="form-control" id="floatingPassword" placeholder="Description" value={record.fields.Description} />
+                        <label for="floatingDescription">Description</label>
+                    </div>
+
+                    <h5 className="card-title"></h5>
+                    <p className="card-text"></p>
                     <a href="#" className="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
@@ -19,7 +34,10 @@ function FeatureRequests() {
     );
 
     useEffect(() => {
-        fetch('https://api.airtable.com/v0/appWpfGBjwdcqGcJF/tblcQXJgPPXKVbBia?api_key=keyY99GmetGQT2rHG&sort%5B0%5D%5Bfield%5D=Created&sort%5B0%5D%5Bdirection%5D=asc')
+        fetch('https://api.airtable.com/v0/appWpfGBjwdcqGcJF/tblcQXJgPPXKVbBia'
+            + '?api_key=keyY99GmetGQT2rHG'
+            + '&sort%5B0%5D%5Bfield%5D=ID'
+            + '&sort%5B0%5D%5Bdirection%5D=asc')
             //feature requests
             .then((resp) => resp.json())
             .then(data => {
@@ -46,17 +64,8 @@ function FeatureRequests() {
             {error && JSON.stringify(error)}
             <br />
             <div className="row">
-                {records.map((record, index) => {
-                    if ((index % 3) == 0 && index !== 0) {
-                        return (
-                            <div key={record.id}>
-                                <div className="w-100"></div>
-                                <Column  record={record} />
-                            </div>
-                        )
-                    } else {
-                        return <Column key={record.id} record={record} />
-                    }
+                {records.map((record, index, array) => {
+                    return <Column key={record.id} record={record} />
                 })}
             </div>
             <button type="button" className="btn btn-primary">Add Card</button>

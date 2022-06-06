@@ -10,10 +10,9 @@ function FeatureRequests() {
                 <div class="card-header">Feature Request</div>
                 <img src="https://www.google.com/logos/doodles/2022/memorial-day-2022-united-states-6753651837109423-l.png" className="card-img-top" alt="blah" />
                 <div className="card-body">
-                    {record.fields.Created}
-                    <div class="form-floating mb-3">
-                        <input type="email" readonly class="form-control-plaintext" id="floatingPlaintextInput" placeholder="name@example.com" value="name@example.com" />
-                            <label for="floatingPlaintextInput">Input with value</label>
+                    <div class="mb-3">
+                        <label for="floatingCreated">Date Created</label>
+                        <input type="datetime-local" disabled class="form-control-plaintext" id="floatingCreated" step="1" defaultValue={record.fields.Created.toString().substring(0, 19)} />
                     </div>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingTitle" placeholder="Title" value={record.fields.Title} />

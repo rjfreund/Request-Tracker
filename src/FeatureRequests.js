@@ -58,8 +58,6 @@ function FeatureRequests() {
 
     return (
         <>
-            {records && JSON.stringify(records)}
-            <br />
             {error && JSON.stringify(error)}
             <br />
             <div className="row">
